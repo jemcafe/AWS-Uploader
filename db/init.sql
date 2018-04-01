@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS Images
+DROP TABLE IF EXISTS Images;
 
 CREATE TABLE Images (
     id SERIAL PRIMARY KEY,
-    image_url TEXT NOT NULL,
-)
+    image_url TEXT NOT NULL
+);
