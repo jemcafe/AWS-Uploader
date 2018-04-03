@@ -44,7 +44,7 @@ const storage = multerS3({
 const upload = multer({
     storage: storage,              // Storage
     limits: { fileSize: 1000000 }, // File size limit
-}).single('image')                 // This fieldname must match request fieldname ('image')
+}).single('image')                 // This fieldname must match request fieldname  ( I chose to call it 'image' ) 
 
 
 // Uploads file to S3
@@ -80,7 +80,7 @@ app.delete('/api/delete/:key', (req, res, next) => {
     });
 });
 
-// Gets image link info from the database
+// Gets all the image links from the database
 app.get('/api/images', (req, res, next) => {
     const db = app.get('db');
     db.read_images().then( images => {
