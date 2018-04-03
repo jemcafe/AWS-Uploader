@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-//
+// Components
 import Uploader from './Uploader/Uploader';
 
 class App extends Component {

@@ -1,11 +1,15 @@
-.uploader {
+form {
+    margin: 30px 0;
+}
+
+form .uploader {
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
 }
 
-.dropzone {
+form .uploader .dropzone {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -16,4 +20,21 @@
     font-size: 14px;
     color: #383338;
     background: #ffffff7e;
+}
+
+form .uploader .dropzone .plus-icon {
+    color: #857885;
+}
+
+form .submit-btn > .btn {
+    outline: none;
+    background: lightgrey;
+    border: none;
+    padding: 8px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+img {
+    max-width: 80%;
 }
