@@ -51,25 +51,36 @@ const upload = multer({
 app.post('/api/upload', upload, (req, res, next) => {
     console.log('Uploaded file: ', req.file);
     // res.status(200).send('File uploaded');
-
     const db = app.get('db');
-    // The image link (req.file.location) is added to the database after it's uploaded to S3
-    db.create_image( [req.file.location] ).then( image => {
+    const { key, location } = req.file;
+
+    // The file name and link are added to database after the upload
+    db.create_image( [key, location] ).then( image => {
         res.status(200).json(image);
     }).catch(err => console.log(err));
 });
 
 // Deletes object from S3
 app.delete('/api/delete/:key', (req, res, next) => {
+    const db = app.get('db');
     const params = { 
         Bucket: process.env.AWS_BUCKET, 
-        Key: req.params.key  // The name of the file (file_name.ext)
+        Key: req.params.key
     };
     s3.deleteObject(params, (err, data) => {
-        if (err) return res.send({ error: err });
-        console.log('deleted');
-        res.send({ data });
+        if (err) return res.json({ error: err });
+
+        db.delete_image( [req.params.key] ).then( () => {
+            res.status(200).json({ msg: 'Deleted'});
+        }).catch(err => console.log(err));
     });
+});
+
+app.get('/api/images', (req, res, next) => {
+    const db = app.get('db');
+    db.read_images().then( images => {
+        res.status(200).json(images)
+    }).catch(err => console.log(err));
 });
 
 

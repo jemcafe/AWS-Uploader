@@ -1,5 +1,5 @@
 INSERT INTO Images
-(image_url)
+(file_name, image_url)
 VALUES
-($1)
+($1, $2)
 RETURNING *;

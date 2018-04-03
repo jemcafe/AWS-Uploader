@@ -1,2 +1,2 @@
 DELETE FROM Images 
-WHERE id = $1;
+WHERE file_name = $1;

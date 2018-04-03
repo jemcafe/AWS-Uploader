@@ -1,4 +1,4 @@
 UPDATE Images
-SET image_url = $1
-WHERE id = $2
+SET file_name = $1, image_url = $2
+WHERE id = $3
 RETURNING *;
