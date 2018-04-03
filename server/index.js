@@ -50,7 +50,6 @@ const upload = multer({
 // Uploads file to S3
 app.post('/api/upload', upload, (req, res, next) => {
     console.log('Uploaded file: ', req.file);
-    // res.status(200).send('File uploaded');
     const db = app.get('db');
     const { key, location } = req.file;
 
@@ -63,19 +62,24 @@ app.post('/api/upload', upload, (req, res, next) => {
 // Deletes object from S3
 app.delete('/api/delete/:key', (req, res, next) => {
     const db = app.get('db');
+    // Parameters for the S3 method
     const params = { 
         Bucket: process.env.AWS_BUCKET, 
         Key: req.params.key
     };
+    // Deletes object from S3
     s3.deleteObject(params, (err, data) => {
+        // If error return error
         if (err) return res.json({ error: err });
 
+        // Deletes image from the database
         db.delete_image( [req.params.key] ).then( () => {
             res.status(200).json({ msg: 'Deleted'});
         }).catch(err => console.log(err));
     });
 });
 
+// Gets image info from the database
 app.get('/api/images', (req, res, next) => {
     const db = app.get('db');
     db.read_images().then( images => {
