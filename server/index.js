@@ -2,10 +2,10 @@ require('dotenv').config();
 const express = require('express'),
       bodyParser = require('body-parser'),
       massive = require('massive'),
-      path = require('path'),  // A core node module for working with file and directory paths ( install uneccessary )
       aws = require('aws-sdk'),
       multer = require('multer'),
-      multerS3 = require('multer-s3');
+      multerS3 = require('multer-s3'),
+      path = require('path');  // A core node module for working with file and directory paths ( install uneccessary )
 
 // Configuration settings for the region, credentials, and other options for aws requests
 aws.config.update({
@@ -22,9 +22,9 @@ const s3 = new aws.S3();
 
 //
 app.use(bodyParser.json());
-// massive(process.env.CONNECTION_STRING)
-//     .then(db => app.set('db', db))
-//     .catch(err => console.log(err));
+massive(process.env.CONNECTION_STRING)
+    .then(db => app.set('db', db))
+    .catch(err => console.log(err));
 
 // Storage
 const storage = multerS3({
@@ -42,15 +42,19 @@ const storage = multerS3({
 
 // Init upload
 const upload = multer({
-    storage: storage,
-    limits: { fileSize: 1000000 },
+    storage: storage,              // Storage
+    limits: { fileSize: 1000000 }, // File size limit
 }).single('image')  // This fieldname must match request fieldname ('image')
 
 
 // Upload file
 app.post('/api/upload', upload, (req, res, next) => {
     console.log('Uploaded file: ', req.file);
-    res.status(200).send('File uploaded');
+    // res.status(200).send('File uploaded');
+    const db = app.get('db');
+    db.create_image( [req.file.location] ).then( image => {
+        res.status(200).json(image);
+    }).catch(err => console.log(err));
 });
 
 
