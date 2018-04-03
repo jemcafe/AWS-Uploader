@@ -31,14 +31,16 @@ class Uploader extends Component {
                 console.log(err);
                 console.log('Error', res.body);
             } else {
-                console.log('File uploaded', res.body);
+                console.log('File uploaded: ', res.body);
                 this.setState({ image: res.body });
             }
         });
     }
 
     delete = () => {
-        axios.delete(`/api/delete/${this.state.image.file_name}`)
+        const url = this.state.image.image_url.split('/');
+        const fileName = url[url.length-1];
+        axios.delete(`/api/delete/${fileName}`)
         .then( res => {
             console.log(res.data);
             this.setState({ image: null });
@@ -62,7 +64,7 @@ class Uploader extends Component {
                         <input className="btn" type="submit"/>
                     </div>
                 </form>
-                { this.state.image && <img src={this.state.image.image_url} alt="pic" style={{maxWidth: '80%'}}  /> }
+                { this.state.image && <img src={this.state.image.image_url} alt="pic"/> }
                 <button className="btn" onClick={this.delete}>Delete</button>
             </Aux>
         )

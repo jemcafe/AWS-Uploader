@@ -54,8 +54,9 @@ app.post('/api/upload', upload, (req, res, next) => {
     const { key, location } = req.file;
 
     // The file name and link are added to database after the upload
-    db.create_image( [key, location] ).then( image => {
-        res.status(200).json(image[0]);
+    db.create_image( [key, location] ).then( images => {
+        const image = { id: images[0].id, image_url: images[0].image_url }
+        res.status(200).json(image);
     }).catch(err => console.log(err));
 });
 
@@ -79,7 +80,7 @@ app.delete('/api/delete/:key', (req, res, next) => {
     });
 });
 
-// Gets image info from the database
+// Gets image link info from the database
 app.get('/api/images', (req, res, next) => {
     const db = app.get('db');
     db.read_images().then( images => {
