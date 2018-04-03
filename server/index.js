@@ -47,10 +47,11 @@ const upload = multer({
 }).single('image')  // This fieldname must match request fieldname ('image')
 
 // Endpoints
-app.post('/api/upload', upload, (req, res, next) => {
-    console.log('Uploaded File: ', req.file);
-    res.status(200).send('File uploaded');
-});
+    // Upload file
+    app.post('/api/upload', upload, (req, res, next) => {
+        console.log('Uploaded File: ', req.file);
+        res.status(200).send('File uploaded');
+    });
 
 
 const port = process.env.SERVER_PORT || 3060;
