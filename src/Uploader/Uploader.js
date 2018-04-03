@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import './Uploader.css';
 import Aux from '../hoc/Aux';
 import Dropzone from 'react-dropzone';
-import upload from 'superagent';
+import superagent from 'superagent';
+import axios from 'axios';
 
 class Uploader extends Component {
     constructor() {
         super();
         this.state ={
             files: [],
-            image: ''
+            image: null
         }
     }
 
@@ -23,17 +24,25 @@ class Uploader extends Component {
         e.preventDefault();
         const { files } = this.state;
 
-        upload.post('/api/upload')
+        superagent.post('/api/upload')
         .attach('image', files[0])
         .end((err, res) => {
             if (err) { 
                 console.log(err);
                 console.log('Error', res.body);
             } else {
-                console.log('File upload', res);
-                // this.setState({ image: res.body.file });
+                console.log('File uploaded', res.body);
+                this.setState({ image: res.body });
             }
         });
+    }
+
+    delete = () => {
+        axios.delete(`/api/delete/${this.state.image.file_name}`)
+        .then( res => {
+            console.log(res.data);
+            this.setState({ image: null });
+        }).catch(err => console.log(err));
     }
 
     render () {
@@ -53,7 +62,8 @@ class Uploader extends Component {
                         <input className="btn" type="submit"/>
                     </div>
                 </form>
-                { this.state.image && <img src={this.state.image} alt="pic" style={{maxWidth: '80%'}}  /> }
+                { this.state.image && <img src={this.state.image.image_url} alt="pic" style={{maxWidth: '80%'}}  /> }
+                <button className="btn" onClick={this.delete}>Delete</button>
             </Aux>
         )
     }

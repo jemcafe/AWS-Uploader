@@ -55,7 +55,7 @@ app.post('/api/upload', upload, (req, res, next) => {
 
     // The file name and link are added to database after the upload
     db.create_image( [key, location] ).then( image => {
-        res.status(200).json(image);
+        res.status(200).json(image[0]);
     }).catch(err => console.log(err));
 });
 
