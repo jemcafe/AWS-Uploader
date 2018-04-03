@@ -1,6 +1,6 @@
 # AWS S3 Upload
 
-This is a simple app that uploads file to AWS S3.
+This is a simple app that uploads files to AWS S3.
 
 On the AWS side, I'm using IAM which supplies basic security. It is setup so users only have permission to read, add (put), or delete objects in a specific bucket.
 
@@ -16,3 +16,4 @@ On the AWS side, I'm using IAM which supplies basic security. It is setup so use
 * massive
 * postgreSQL
 * axios
+
