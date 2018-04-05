@@ -29,11 +29,11 @@ massive(process.env.CONNECTION_STRING)
 // Storage
 const storage = multerS3({
     s3: s3,                                      // S3 storage
-    bucket: process.env.AWS_BUCKET,              // The file is stored a specific bucket
+    bucket: process.env.AWS_BUCKET,              // The file is stored in a specific bucket
     acl: 'public-read',                          // The file will be viewable by anyone
     contentType: multerS3.AUTO_CONTENT_TYPE,     // This multerS3 method finds the content type of the file. The default contentType is 'application/octet-stream' in S3, which makes file downloadable in the browser instead of viewable.
-    metadata: function (req, file, cb) {         // Metadata provides info about other data in the file
-        cb(null, { fieldName: file.fieldname }); // The fieldname metedata will be whatever the request fieldname is ('image')
+    metadata: function (req, file, cb) {         // Metadata provides info about the other data in the file
+        cb(null, { fieldName: file.fieldname }); // The fieldname will be whatever the request fieldname is ('image')
     },
     key: function (req, file, cb) {              // The key is the name of the file
         cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`);  // path.ext() gets the file extension (.jpg, .png, .gif...)
@@ -44,7 +44,7 @@ const storage = multerS3({
 const upload = multer({
     storage: storage,              // Storage
     limits: { fileSize: 1000000 }, // File size limit
-}).single('image')                 // This fieldname must match request fieldname  ( I chose to call it 'image' ) 
+}).single('image')                 // This fieldname must match the request fieldname  ( I chose to call it 'image' ) 
 
 
 // Uploads file to S3
@@ -53,7 +53,7 @@ app.post('/api/upload', upload, (req, res, next) => {
     const db = app.get('db');
     const { key, location } = req.file;
 
-    // The file name and link are added to database after the upload
+    // The file name (key) and the link to the file (location) are added to database after the upload
     db.create_image( [key, location] ).then( images => {
         const image = { id: images[0].id, image_url: images[0].image_url }
         res.status(200).json(image);
@@ -73,7 +73,7 @@ app.delete('/api/delete/:key', (req, res, next) => {
         // If error return error
         if (err) return res.json({ error: err });
 
-        // Deletes image from the database
+        // Deletes image info from the database after its deleted from S3
         db.delete_image( [req.params.key] ).then( () => {
             res.status(200).json({ msg: 'Deleted'});
         }).catch(err => console.log(err));

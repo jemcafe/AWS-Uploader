@@ -16,4 +16,3 @@ On the AWS side, I'm using IAM which supplies basic security. It is setup so use
 * massive
 * postgreSQL
 * axios
-
