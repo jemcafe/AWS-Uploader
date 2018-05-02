@@ -67,7 +67,7 @@ app.post('/api/upload', (req, res, next) => {
     const db = app.get('db');
 
     upload(req, res, (error) => {
-        // If there's an error send the error
+        // If there's an error, the error message is sent
         if (error) {
             res.status(412).json({ msg: error });
 
