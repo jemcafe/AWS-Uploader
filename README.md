@@ -1,6 +1,6 @@
 # AWS S3 - Upload and Delete
 
-This is a simple react app where files can be uploaded to and deleted from AWS S3.
+This is a simple react app where files can be uploaded to and deleted from Amazon Web Service (AWS) S3.
 
 On the AWS side, I'm using IAM which supplies basic security. It is setup so users only have permission to read, add (put), or delete objects in a specific bucket. Images are public, but the bucket isn't.
 
