@@ -17,7 +17,7 @@ class Uploader extends Component {
     onDrop = (files) => {
         console.log(files);
         this.setState({ files });
-        // the upload http request can go here for an immediate upload after the drop. I'm just using submit button for now.
+        // The upload method can go here for an immediate upload after the drop. I'm just using submit button for now.
     }
 
     upload = (e) => {

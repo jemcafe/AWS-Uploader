@@ -71,21 +71,20 @@ app.post('/api/upload', (req, res, next) => {
         if (error) {
             res.status(412).json({ msg: error });
 
-        // If no file was submitted an error message is sent
+        // If no file was submitted, an error message is sent
         } else if (req.file == undefined) {
             res.status(412).json({ msg: 'Error: no file selected' });
         
+        // Upload successful
         } else {
-            // Upload successful
             console.log('Uploaded file: ', req.file);
             const { key, location } = req.file;
 
             // The file name (key) and link to the file (location) are added to database
             db.create_image( [key, location] ).then( images => {
-                const { id, image_url } = images[0];
                 const image = { 
-                    id: id, 
-                    image_url: image_url 
+                    id: images[0].id, 
+                    image_url: images[0].image_url 
                 }
                 res.status(200).json(image);
             }).catch(err => console.log(err));
@@ -97,7 +96,7 @@ app.post('/api/upload', (req, res, next) => {
 app.delete('/api/delete/:key', (req, res, next) => {
     const db = app.get('db');
 
-    // Parameters for the S3 delete method. The bucket and file name is needed.
+    // Parameters for the S3 delete method. The bucket and file name are needed.
     const params = { 
         Bucket: process.env.AWS_BUCKET, 
         Key: req.params.key
@@ -105,8 +104,8 @@ app.delete('/api/delete/:key', (req, res, next) => {
 
     // Deletes object from S3
     s3.deleteObject(params, (error, data) => {
-        // If there's an error return the error
-        if (error) return res.json({ error });
+        // If there's an error return and send the error
+        if (error) return res.json({ msg: error });
 
         // Deletes image info from the database after its deleted from S3
         db.delete_image( [req.params.key] ).then( () => {
@@ -118,6 +117,7 @@ app.delete('/api/delete/:key', (req, res, next) => {
 // Gets all the image links from the database
 app.get('/api/images', (req, res, next) => {
     const db = app.get('db');
+    
     db.read_images().then( images => {
         res.status(200).json(images)
     }).catch(err => console.log(err));
