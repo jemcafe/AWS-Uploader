@@ -52,4 +52,4 @@ In the root folder create a new folder named server, and in that folder create a
 
 ### Server
 
-...in progess
+...README in progess
