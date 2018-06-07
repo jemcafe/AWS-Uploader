@@ -10,6 +10,7 @@ You will need to have an sufficient version of [node.js](https://nodejs.org/en/)
 
 ### Create react app
 
+Choose a directory and create your react app.
 ```
 $ create-react-app <app-name>
 ```
@@ -34,3 +35,19 @@ We also need express, but that's already installed with create-react-app. Also m
 ## Getting Started
 
 We're going to start with the backend, since it's the most important part of this app. You can use [postman](https://www.getpostman.com/) to test HTTP requests without the need of a front end for now, but we will have a front end as well.
+
+Okay, let's create the sever.
+
+In the root folder create a new folder named server, and in that folder create a ne file named index.js
+```
+/app-name
+   /node_modules
+   /public
+   /server
+      index.js
+   /src
+   package.json
+   README.md
+```
+
+### Server
