@@ -8,6 +8,8 @@ I'm using React for the front end.
 
 You will need to have an sufficient version of [node.js](https://nodejs.org/en/) and [npm](https://nodejs.org/en/) (or [yarn](https://yarnpkg.com/lang/en/)).
 
+You can use [postman](https://www.getpostman.com/) to test the HTTP requests without the need of a front end, but we will have a front end as well.
+
 ### Create react app
 
 Choose a directory and create your react app.
@@ -34,9 +36,8 @@ We also need express, but that's already installed with create-react-app. Also m
 
 ## Getting Started
 
-We're going to start with the backend, since it's the most important part of this app. You can use [postman](https://www.getpostman.com/) to test HTTP requests without the need of a front end for now, but we will have a front end as well.
-
-Okay, let's setup the sever.
+We're going to start with the backend, since it's the most important part of this demo.
+Let's setup the sever.
 
 ### Server
 
