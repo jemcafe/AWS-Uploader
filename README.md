@@ -8,7 +8,7 @@ I'm using React for the front end.
 
 You will need to have an sufficient version of [node.js](https://nodejs.org/en/) and [npm](https://nodejs.org/en/) (or [yarn](https://yarnpkg.com/lang/en/)).
 
-You can use [postman](https://www.getpostman.com/) to test the HTTP requests without the need of a front end, but we will have a front end as well.
+You can use [postman](https://www.getpostman.com/) to test the HTTP requests.
 
 ### Create react app
 
