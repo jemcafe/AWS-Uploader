@@ -1,4 +1,4 @@
-# AWS S3 - Upload and Delete
+## AWS S3 - Upload and Delete
 
 Upload to and delete files from Amazon Web Service (AWS) S3. In AWS, I'm using IAM which supplies basic security. It is setup so users only have permission to read, add (put), or delete objects from a bucket. Images are public, but the bucket isn't. 
 
