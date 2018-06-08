@@ -24,8 +24,8 @@ $ create-react-app <app-name>
 * multerS3
 * dotenv
 * superagent
-* react-dropzone
 * axios
+* react-dropzone
 * massive (for postgreSQL) (optional)
 
 ```
@@ -41,7 +41,7 @@ Let's setup the sever.
 
 ### Server
 
-In the root folder create a new folder named server, and in that folder create a ne file named index.js
+In the root folder create a new folder named server, and in that folder create a new file named index.js
 ```
 /app-name
    /node_modules
