@@ -38,6 +38,8 @@ We're going to start with the backend, since it's the most important part of thi
 
 Okay, let's setup the sever.
 
+### Server
+
 In the root folder create a new folder named server, and in that folder create a ne file named index.js
 ```
 /app-name
