@@ -36,7 +36,7 @@ We also need express, but that's already installed with create-react-app. Also m
 
 We're going to start with the backend, since it's the most important part of this app. You can use [postman](https://www.getpostman.com/) to test HTTP requests without the need of a front end for now, but we will have a front end as well.
 
-Okay, let's create the sever.
+Okay, let's setup the sever.
 
 In the root folder create a new folder named server, and in that folder create a ne file named index.js
 ```
@@ -49,7 +49,5 @@ In the root folder create a new folder named server, and in that folder create a
    package.json
    README.md
 ```
-
-### Server
 
 ...README in progess
