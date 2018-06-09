@@ -1,6 +1,5 @@
 require('dotenv').config();
 const express = require('express'),
-      bodyParser = require('body-parser'),
       massive = require('massive'),
       aws = require('aws-sdk'),
       multer = require('multer'),
@@ -14,14 +13,11 @@ aws.config.update({
     region: process.env.REGION
 });
 
-// Sever
+// Server
 const app = express();
 
 // AWS S3
 const s3 = new aws.S3();
-
-// JSON parser
-app.use(bodyParser.json());
 
 // Connnection to the database (Massive is for PostgreSQL)
 massive(process.env.CONNECTION_STRING)
