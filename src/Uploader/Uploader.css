@@ -28,11 +28,14 @@ form .uploader .dropzone .plus-icon {
 
 .btn {
     outline: none;
-    background: lightgrey;
+    background: #d3d3d3;
     border: none;
     padding: 8px 10px;
     border-radius: 4px;
     cursor: pointer;
+}
+.btn:active {
+    background: #b9b9b9;
 }
 
 img {
